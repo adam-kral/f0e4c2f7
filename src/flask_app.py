@@ -41,13 +41,13 @@ def bigrams_from_wiki():
     if not page:
         return jsonify({'error': 'No page name specified'}, 400)
 
-    r = requests.get(f'https://en.wikipedia.org/wiki/{page}')  # slash would be encoded as %2F in the input and would also work?
+    r = requests.get(f'https://en.wikipedia.org/wiki/{page}')
     if r.status_code != 200:
         return jsonify({'error': f'Wikipedia returned status code {r.status_code} for page {page}'}, 400)
 
     soup = BeautifulSoup(r.content, 'html.parser')
 
-    # Find the div with id="target"
+    # Find the div with id="bodyContent", which contains the article only
     target_div = soup.find('div', id='bodyContent')
     if not target_div:
         return jsonify({'error': 'No div with id="bodyContent" found'}, 400)
