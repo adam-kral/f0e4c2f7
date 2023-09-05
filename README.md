@@ -9,7 +9,7 @@ not included in the bigrams.
 
 The bigrams are sorted descending by occurrences. 
 
-This repository contains both the script at `src/bigram_frequency.py` and the web API implementation in flask `src/flask_app.py`.
+This repository contains both the script at `src/bigram_frequency.py` and the web API implemented using Flask at `src/flask_app.py`.
 
 ## Usage
 
@@ -18,6 +18,8 @@ First, in the repository root, build the docker image:
 ```bash
 docker build -t msd_assignment_bigram .
 ```
+
+The entrypoint of the container is the Flask development server.
 
 ### Running the server
 
