@@ -75,11 +75,10 @@ as a query parameter. If not specified, the default value is 10.
 This endpoint takes a Wikipedia page as input and returns the bigram frequency of the article (ten most frequent bigrams).
 
 ```bash
-curl http://localhost:5000/bigrams_from_wiki/<page_title>
+curl http://localhost:5000/bigrams_from_wiki?page=<page_title>
 ```
 
-where `<page_title>` is the title of the Wikipedia page (e.g. `/dev/zero`)
-
+where `<page_title>` is the (urlencoded) title of the Wikipedia page
 
 ### Running the bigram frequency script
 

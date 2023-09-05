@@ -30,14 +30,16 @@ def bigrams_from_file():
     })
 
 
-@app.route('/bigrams_from_wiki/<path:page>', methods=['GET'])  # path converter allows slashes in the path
-def bigrams_from_wiki(page):
+@app.route('/bigrams_from_wiki', methods=['GET'])
+def bigrams_from_wiki():
     """ Get bigram counts from a Wikipedia article.
 
     Returns the 10 most frequent bigrams in the article content.
     (If implemented, the number of returned bigrams could be changed by passing the `num_bigrams` query parameter.)
     """
-    num_bigrams = request.args.get('num_bigrams', DEFAULT_NUM_BIGRAMS, type=int)
+    page, num_bigrams = request.args.get('page'), request.args.get('num_bigrams', DEFAULT_NUM_BIGRAMS, type=int)
+    if not page:
+        return jsonify({'error': 'No page name specified'}, 400)
 
     r = requests.get(f'https://en.wikipedia.org/wiki/{page}')  # slash would be encoded as %2F in the input and would also work?
     if r.status_code != 200:
@@ -52,7 +54,6 @@ def bigrams_from_wiki(page):
 
     # Get all the text within the div, including child elements
     all_text = target_div.get_text(separator=' ')
-
     bigrams, bigram_counts = get_bigram_counts(all_text)
 
     return jsonify({

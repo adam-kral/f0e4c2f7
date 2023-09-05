@@ -6,7 +6,7 @@ ENV PYTHONUNBUFFERED=1
 
 # Make a directory for our application
 WORKDIR /app
-¨
+
 # Copy all files from our local machine project into the /app folder inside the container
 COPY . .
 
